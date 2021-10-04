@@ -1,3 +1,6 @@
+# ssh keys
+keys/
+
 # Ansible
 #ansible.cfg
 
