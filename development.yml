@@ -1,14 +1,6 @@
+# development
 all:
   children:
-    prod:
-      children:
-        aws:
-          hosts:
-            aws1:
-              ansible_host: 13.36.11.132
-          vars:
-            ansible_user: ubuntu
-            ansible_ssh_private_key_file: keys/cloud-1.pem
     dev:
       children:
         vagrant:
