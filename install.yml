@@ -1,5 +1,5 @@
 ---
-- name: Install Docker
+- name: Install Cloud-1
   hosts: all
   tasks:
     - name: Install Docker dependencies
