@@ -5,13 +5,13 @@ all:
       children:
         vagrant:
           hosts:
-            alpine:
+            alpine_vagrant:
               ansible_port: 4345
-            debian:
+            debian_vagrant:
               ansible_port: 3345
-            fedora:
+            fedora_vagrant:
               ansible_port: 2345
-            ubuntu:
+            ubuntu_vagrant:
               ansible_port: 1345
           vars:
             ansible_user: vagrant
@@ -25,3 +25,16 @@ all:
             ansible_user: aguerin
             ansible_host: 127.0.0.1
             ansible_ssh_private_key_file: ./keys/id_rsa
+    debian_based:
+      hosts:
+        debian_vagrant:
+        ubuntu_vagrant:
+        ubuntu_vm:
+    redhat_based:
+      hosts:
+        fedora_vagrant:
+    alpine:
+    fedora:
+        fedora_vagrant:
+    debian:
+    ubuntu:
