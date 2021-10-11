@@ -7,7 +7,8 @@ FROM alpine:latest
 # and install php-fpm
 RUN apk update\
   && apk upgrade\
-  && apk add php8-fpm
+  && apk add php8-fpm\
+    php8-mysqli
 
 # update php-fpm config
 RUN sed -i 's/^listen = 127.0.0.1:9000$/listen = 0.0.0.0:9000/' /etc/php8/php-fpm.d/www.conf
