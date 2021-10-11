@@ -1,0 +1,20 @@
+# phpmyadmin
+
+# use ft_nginx as base image
+FROM ft_nginx:latest
+
+# update and upgrade packages
+RUN apk update\
+  && apk upgrade
+
+# copy and extract phpmyadmin sources to the container
+ADD phpmyadmin.tar.gz /usr/share/nginx/
+
+RUN mv /usr/share/nginx/phpMyAdmin-5.1.1-all-languages /usr/share/nginx/phpmyadmin
+
+# copy nginx configuration file for phpmyadmin
+COPY phpmyadmin.conf /etc/nginx/conf.d/
+
+# remove default site and its associate nginx config file
+RUN rm -rf /usr/share/nginx/html\
+  && rm /etc/nginx/conf.d/default.conf
