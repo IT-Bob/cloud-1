@@ -1,6 +1,6 @@
 # nginx
 
-# Use alpine linux as base image
+# use alpine linux as base image
 FROM alpine:latest
 
 # update and upgrade packages
@@ -8,8 +8,8 @@ FROM alpine:latest
 RUN apk update\
   && apk upgrade\
   && apk add\
-	ca-certificates\
-	curl\
+    ca-certificates\
+    curl\
     openssl
 
 # set up nginx apk repository

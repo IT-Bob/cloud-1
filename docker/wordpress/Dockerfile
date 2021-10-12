@@ -1,6 +1,6 @@
 # ft_wordpress
 
-# Use ft_wordpress as base image
+# use ft_wordpress as base image
 FROM ft_nginx:latest
 
 # update and upgrade packages
