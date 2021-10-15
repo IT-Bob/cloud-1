@@ -19,22 +19,49 @@ all:
             ansible_ssh_private_key_file: .vagrant/machines/cloud1-{{ inventory_hostname }}/virtualbox/private_key
         virtualbox:
           hosts:
-            ubuntu_vm:
+            debian_vb:
+              ansible_port: 34022
+            fedora_vb:
+              ansible_port: 33022
+            manjaro_vb:
+              ansible_port: 35022
+            ubuntu_vb:
               ansible_port: 32022
+            ubuntu18_vb:
+              ansible_port: 40022
           vars:
             ansible_user: aguerin
             ansible_host: 127.0.0.1
             ansible_ssh_private_key_file: ./keys/id_rsa
+    arch_based:
+      hosts:
+        manjaro_vb:
     debian_based:
       hosts:
         debian_vagrant:
         ubuntu_vagrant:
-        ubuntu_vm:
+        debian_vb:
+        ubuntu_vb:
+        ubuntu18_vb:
     redhat_based:
       hosts:
         fedora_vagrant:
-    alpine:
-    fedora:
-        fedora_vagrant:
+        fedora_vb:
     debian:
+      hosts:
+        debian_vb:
+    fedora:
+      hosts:
+        fedora_vagrant:
+        fedora_vb:
+    manjaro:
+      hosts:
+        manjaro_vb:
     ubuntu:
+      hosts:
+        ubuntu_vb:
+        ubuntu18_vb:
+    # Groups aliases
+    vb:
+      children:
+        virtualbox
