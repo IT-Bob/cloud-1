@@ -1,35 +1,11 @@
 ---
+# Cloud-1 - install.yml
+
 - name: Install Cloud-1
   hosts: all
   tasks:
-    - name: Install Docker dependencies
-      ansible.builtin.apt:
-        name:
-          - apt-transport-https
-          - ca-certificates
-          - gnupg
-        state: present
-        update_cache: yes
-      become: yes
-    - name: Import Docker GPG key
-      ansible.builtin.apt_key:
-        url: "https://download.docker.com/linux/ubuntu/gpg"
-        keyring: "/usr/share/keyrings/docker-archive-keyring.gpg"
-        state: present
-      become: yes
-    - name: Add Docker stable repository for Ubuntu 20.04 LTS (focal)
-      ansible.builtin.apt_repository:
-        repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu focal stable"
-        filename: "docker"
-        update_cache: yes
-        state: present
-      become: yes
-    - name: Install Docker Engine
-      ansible.builtin.apt:
-        name:
-          - docker-ce
-          - docker-ce-cli
-          - containerd.io
-        state: present
-        update_cache: yes
-      become: yes
+    - name: Install Docker
+      import_role:
+        name: docker
+      tags:
+        - docker
