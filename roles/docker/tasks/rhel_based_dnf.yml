@@ -1,0 +1,21 @@
+# Docker - rhel_based_dnf.yml
+
+- name: Install Docker dependencies
+  ansible.builtin.dnf:
+    name:
+      - dnf-plugins-core
+    state: present
+    update_cache: yes
+  become: yes
+- name: Add Docker Repository
+  ansible.builtin.command:
+    cmd: 'dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo'
+  become: yes
+- name: Install Docker Engine
+  ansible.builtin.dnf:
+    name:
+      - containerd.io
+      - docker-ce
+      - docker-ce-cli
+    state: present
+  become: yes
