@@ -1,0 +1,6 @@
+# Docker - main.yml
+
+# debian based hosts
+- name: Install Docker on Debian based hosts
+  ansible.builtin.import_tasks: debian_based.yml
+  when: ansible_facts['os_family'] | lower == 'debian'
