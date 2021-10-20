@@ -1,16 +1,21 @@
 # Docker - main.yml
 
-# debian based hosts
+# Install Docker on host
+## debian based hosts
 - name: Install Docker on Debian based hosts
   ansible.builtin.import_tasks: debian_based.yml
   when: ansible_facts['os_family'] | lower == 'debian'
-# Arch based hosts
+## Arch based hosts
 - name: Install Docker on Arch based hosts
   ansible.builtin.import_tasks: arch_based.yml
   when: ansible_facts['os_family'] | lower == 'archlinux'
-# RHEL based hosts
+## RHEL based hosts
 - name: Install Docker on RHEL based hosts using dnf package manager
   ansible.builtin.import_tasks: rhel_based_dnf.yml
   when:
     - ansible_facts['os_family'] | lower == 'redhat'
     - ansible_facts['pkg_mgr'] | lower == 'dnf'
+
+# Enable and start Docker service
+- name: Enable Docker service
+  ansible.builtin.import_tasks: start.yml
