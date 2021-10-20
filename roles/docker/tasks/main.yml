@@ -4,3 +4,9 @@
 - name: Install Docker on Debian based hosts
   ansible.builtin.import_tasks: debian_based.yml
   when: ansible_facts['os_family'] | lower == 'debian'
+# RHEL based hosts
+- name: Install Docker on RHEL based hosts using dnf package manager
+  ansible.builtin.import_tasks: rhel_based_dnf.yml
+  when:
+    - ansible_facts['os_family'] | lower == 'redhat'
+    - ansible_facts['pkg_mgr'] | lower == 'dnf'
