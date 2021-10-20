@@ -1,0 +1,9 @@
+# Docker - arch_based.yml
+
+- name: Install Docker Engine
+  community.general.pacman:
+    name:
+      - docker
+    state: present
+    update_cache: yes
+  become: yes
