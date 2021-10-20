@@ -27,8 +27,6 @@ all:
               ansible_port: 35022
             ubuntu_vb:
               ansible_port: 32022
-            ubuntu18_vb:
-              ansible_port: 40022
           vars:
             ansible_user: aguerin
             ansible_host: 127.0.0.1
@@ -42,7 +40,6 @@ all:
         ubuntu_vagrant:
         debian_vb:
         ubuntu_vb:
-        ubuntu18_vb:
     redhat_based:
       hosts:
         fedora_vagrant:
@@ -60,7 +57,6 @@ all:
     ubuntu:
       hosts:
         ubuntu_vb:
-        ubuntu18_vb:
     # Groups aliases
     vb:
       children:
