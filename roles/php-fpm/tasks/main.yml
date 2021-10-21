@@ -3,7 +3,7 @@
 - name: Copy php-fpm Dockerfile and files on host
   ansible.builtin.copy:
     src: .
-    dest: /etc/docker/build/php-fpm/
+    dest: /etc/docker/cloud1/php-fpm/
   become: yes
   tags:
     - build
@@ -13,7 +13,7 @@
     name: ft_php-fpm
     tag: latest
     build:
-      path: /etc/docker/build/php-fpm/
+      path: /etc/docker/cloud1/php-fpm/
     source: build
     state: present
   become: yes

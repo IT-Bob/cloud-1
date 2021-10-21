@@ -3,7 +3,7 @@
 - name: Copy wordpress Dockerfile and files on host
   ansible.builtin.copy:
     src: .
-    dest: /etc/docker/build/wordpress/
+    dest: /etc/docker/cloud1/wordpress/
   become: yes
   tags:
     - build
@@ -13,7 +13,7 @@
     name: ft_wordpress
     tag: latest
     build:
-      path: /etc/docker/build/wordpress/
+      path: /etc/docker/cloud1/wordpress/
     source: build
     state: present
   become: yes

@@ -3,7 +3,7 @@
 - name: Copy nginx Dockerfile and files on host
   ansible.builtin.copy:
     src: .
-    dest: /etc/docker/build/nginx/
+    dest: /etc/docker/cloud1/nginx/
   become: yes
   tags:
     - build
@@ -13,7 +13,7 @@
     name: ft_nginx
     tag: latest
     build:
-      path: /etc/docker/build/nginx/
+      path: /etc/docker/cloud1/nginx/
     source: build
     state: present
   become: yes
