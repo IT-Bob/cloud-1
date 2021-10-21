@@ -9,3 +9,28 @@
         name: docker
       tags:
         - docker
+    - name: Build MySQL Docker image
+      import_role:
+        name: mysql
+      tags:
+        - mysql
+    - name: Build nginx Docker image
+      import_role:
+        name: nginx
+      tags:
+        - nginx
+    - name: Build phpmyadmin Docker image
+      import_role:
+        name: phpmyadmin
+      tags:
+        - phpmyadmin
+    - name: Build wordpress Docker image
+      import_role:
+        name: wordpress
+      tags:
+        - wordpress
+    - name: Build php-fpm Docker image
+      import_role:
+        name: php-fpm
+      tags:
+        - php-fpm

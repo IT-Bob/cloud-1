@@ -1,0 +1,22 @@
+# nginx - main.yml
+
+- name: Copy nginx Dockerfile and files on host
+  ansible.builtin.copy:
+    src: .
+    dest: /etc/docker/build/nginx/
+  become: yes
+  tags:
+    - build
+    - nginx
+- name: Build nginx Docker image
+  community.docker.docker_image:
+    name: ft_nginx
+    tag: latest
+    build:
+      path: /etc/docker/build/nginx/
+    source: build
+    state: present
+  become: yes
+  tags:
+    - build
+    - nginx

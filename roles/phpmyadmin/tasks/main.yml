@@ -1,0 +1,22 @@
+# phpmyadmin - main.yml
+
+- name: Copy phpmyadmin Dockerfile and files on host
+  ansible.builtin.copy:
+    src: .
+    dest: /etc/docker/build/phpmyadmin/
+  become: yes
+  tags:
+    - build
+    - phpmyadmin
+- name: Build phpmyadmin Docker image
+  community.docker.docker_image:
+    name: ft_phpmyadmin
+    tag: latest
+    build:
+      path: /etc/docker/build/phpmyadmin/
+    source: build
+    state: present
+  become: yes
+  tags:
+    - build
+    - phpmyadmin
