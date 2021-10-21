@@ -7,3 +7,14 @@
     state: present
     update_cache: yes
   become: yes
+
+# Install Ansible requirements to control Docker
+- name: Install Python package installer
+  community.general.pacman:
+    name:
+      - python-pip
+    state: present
+    update_cache: yes
+  become: yes
+  tags:
+    - python

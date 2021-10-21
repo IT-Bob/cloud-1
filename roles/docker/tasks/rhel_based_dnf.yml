@@ -19,3 +19,14 @@
       - docker-ce-cli
     state: present
   become: yes
+
+# Install Ansible requirements to control Docker
+- name: Install Python package installer
+  ansible.builtin.dnf:
+    name:
+      - python3-pip
+    state: present
+    update_cache: yes
+  become: yes
+  tags:
+    - python
