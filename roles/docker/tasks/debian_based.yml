@@ -27,9 +27,9 @@
 - name: Install Docker Engine
   ansible.builtin.apt:
     name:
+      - containerd.io
       - docker-ce
       - docker-ce-cli
-      - containerd.io
     state: present
     update_cache: yes
   become: yes
