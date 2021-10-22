@@ -3,34 +3,23 @@
 
 - name: Install Cloud-1
   hosts: all
-  tasks:
-    - name: Install Docker
-      import_role:
-        name: docker
+  roles:
+    - role: docker
       tags:
         - docker
-    - name: Build MySQL Docker image
-      import_role:
-        name: mysql
+      become: yes
+    - role: mysql
       tags:
         - mysql
-    - name: Build nginx Docker image
-      import_role:
-        name: nginx
+    - role: nginx
       tags:
         - nginx
-    - name: Build phpmyadmin Docker image
-      import_role:
-        name: phpmyadmin
+    - role: phpmyadmin
       tags:
         - phpmyadmin
-    - name: Build wordpress Docker image
-      import_role:
-        name: wordpress
+    - role: wordpress
       tags:
         - wordpress
-    - name: Build php-fpm Docker image
-      import_role:
-        name: php-fpm
+    - role: php-fpm
       tags:
         - php-fpm
