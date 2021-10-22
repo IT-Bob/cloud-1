@@ -1,10 +1,10 @@
 # Docker - start.yml
+#
+# Starts and enables Docker service
+#
 
-# Enable and start Docker service on System D
 - name: Enable and start Docker
-  ansible.builtin.systemd:
+  ansible.builtin.service:
     name: docker
     enabled: yes
     state: started
-  become: yes
-  when: ansible_facts['service_mgr'] | lower == 'systemd'

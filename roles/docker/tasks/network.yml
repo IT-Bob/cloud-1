@@ -1,0 +1,11 @@
+# Docker - network.yml
+#
+# Creation of one or more Docker network
+#
+# Creates the network(s) listed in the variable `docker_networks_name`
+
+- name: Create Docker network for Cloud-1
+  community.docker.docker_network:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ docker_networks_name }}"

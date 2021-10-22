@@ -1,4 +1,9 @@
 # Docker - main.yml
+#
+# These tasks install Docker and enable Docker service.
+# They also install the Docker SDK for Python required by
+# the community.docker module to control Docker.
+#
 
 # Install Docker on host
 ## debian based hosts
@@ -16,10 +21,6 @@
     - ansible_facts['os_family'] | lower == 'redhat'
     - ansible_facts['pkg_mgr'] | lower == 'dnf'
 
-# Enable and start Docker service
-- name: Enable Docker service
-  ansible.builtin.import_tasks: start.yml
-
 # Install Docker SDK for Python
 - name: Install Docker SDK for Python
   ansible.builtin.pip:
@@ -29,3 +30,7 @@
   become: yes
   tags:
     - python
+
+# Enable and start Docker service
+- name: Enable Docker service
+  ansible.builtin.import_tasks: start.yml

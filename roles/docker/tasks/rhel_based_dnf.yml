@@ -1,4 +1,7 @@
 # Docker - rhel_based_dnf.yml
+#
+# Install Docker on a RHEL-based system
+#
 
 - name: Install Docker dependencies
   ansible.builtin.dnf:
