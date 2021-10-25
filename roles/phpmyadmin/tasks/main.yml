@@ -16,6 +16,7 @@
       path: /etc/docker/cloud1/phpmyadmin/
     source: build
     state: present
+    force_source: yes
   become: yes
   tags:
     - build

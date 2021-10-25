@@ -16,6 +16,7 @@
       path: /etc/docker/cloud1/wordpress/
     source: build
     state: present
+    force_source: yes
   become: yes
   tags:
     - build
