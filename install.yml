@@ -3,23 +3,37 @@
 
 - name: Install Cloud-1
   hosts: all
+  vars:
+    docker_networks_name:
+      - cloud-1
   roles:
-    - role: docker
+    - name: import docker role
+      role: docker
       tags:
         - docker
       become: yes
-    - role: mysql
+    - name: import mysql role
+      role: mysql
       tags:
         - mysql
-    - role: nginx
+      become: yes
+    - name: import nginx role
+      role: nginx
       tags:
         - nginx
-    - role: phpmyadmin
+      become: yes
+    - name: import phpmyadin role
+      role: phpmyadmin
       tags:
         - phpmyadmin
-    - role: wordpress
+      become: yes
+    - name: import wordpress role
+      role: wordpress
       tags:
         - wordpress
-    - role: php-fpm
+      become: yes
+    - name: import php-fpm role
+      role: php-fpm
       tags:
         - php-fpm
+      become: yes
