@@ -60,4 +60,4 @@ all:
     # Groups aliases
     vb:
       children:
-        virtualbox
+        virtualbox:
