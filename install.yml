@@ -50,6 +50,3 @@
         - docker_network_name: "{{ docker_networks_name[0] }}"
       tags:
         - mysql
-          # - name: Add mysql container to memory inventory
-          #   ansible.builtin.add_host:
-          #     name: mysql_ctn
