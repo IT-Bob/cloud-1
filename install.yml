@@ -37,3 +37,16 @@
       tags:
         - php-fpm
       become: yes
+  tasks:
+    - name: Create docker network
+      ansible.builtin.import_tasks: roles/docker/tasks/network.yml
+      become: yes
+      tags:
+        - always
+    - name: Create mysql container
+      ansible.builtin.import_tasks: roles/mysql/tasks/run.yml
+      become: yes
+      vars:
+        - docker_network_name: "{{ docker_networks_name[0] }}"
+      tags:
+        - mysql
