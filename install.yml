@@ -6,46 +6,35 @@
   vars:
     docker_networks_name:
       - cloud-1
+  become: yes
   roles:
     - name: import docker role
       role: docker
       tags:
         - docker
-      become: yes
     - name: import mysql role
       role: mysql
       tags:
         - mysql
-      become: yes
     - name: import nginx role
       role: nginx
       tags:
         - nginx
-      become: yes
     - name: import phpmyadin role
       role: phpmyadmin
       tags:
         - phpmyadmin
-      become: yes
     - name: import wordpress role
       role: wordpress
       tags:
         - wordpress
-      become: yes
     - name: import php-fpm role
       role: php-fpm
       tags:
         - php-fpm
-      become: yes
   tasks:
-    - name: Create docker network
-      ansible.builtin.import_tasks: roles/docker/tasks/network.yml
-      become: yes
-      tags:
-        - always
     - name: Create mysql container
       ansible.builtin.import_tasks: roles/mysql/tasks/run.yml
-      become: yes
       vars:
         - docker_network_name: "{{ docker_networks_name[0] }}"
       tags:
