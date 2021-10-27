@@ -20,40 +20,23 @@ all:
         virtualbox:
           hosts:
             debian_vb:
-              ansible_port: 34022
-            fedora_vb:
               ansible_port: 33022
-            manjaro_vb:
-              ansible_port: 35022
+              ansible_user: root
             ubuntu_vb:
               ansible_port: 32022
+              ansible_user: aguerin
           vars:
-            ansible_user: aguerin
             ansible_host: 127.0.0.1
             ansible_ssh_private_key_file: ./keys/id_rsa
-    arch_based:
-      hosts:
-        manjaro_vb:
     debian_based:
       hosts:
         debian_vagrant:
         ubuntu_vagrant:
         debian_vb:
         ubuntu_vb:
-    redhat_based:
-      hosts:
-        fedora_vagrant:
-        fedora_vb:
     debian:
       hosts:
         debian_vb:
-    fedora:
-      hosts:
-        fedora_vagrant:
-        fedora_vb:
-    manjaro:
-      hosts:
-        manjaro_vb:
     ubuntu:
       hosts:
         ubuntu_vb:
