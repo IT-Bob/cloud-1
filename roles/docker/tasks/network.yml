@@ -4,7 +4,7 @@
 #
 # Creates the network(s) listed in the variable `docker_networks_name`
 
-- name: Create Docker network for Cloud-1
+- name: Create Docker network
   community.docker.docker_network:
     name: "{{ item }}"
     state: present

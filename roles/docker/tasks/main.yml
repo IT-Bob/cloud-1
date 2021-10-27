@@ -8,15 +8,15 @@
 # Install Docker on host
 ## debian based hosts
 - name: Install Docker on Debian based hosts
-  ansible.builtin.import_tasks: debian_based.yml
+  ansible.builtin.import_tasks: install_debian_based.yml
   when: ansible_facts['os_family'] | lower == 'debian'
 ## Arch based hosts
 - name: Install Docker on Arch based hosts
-  ansible.builtin.import_tasks: arch_based.yml
+  ansible.builtin.import_tasks: install_arch_based.yml
   when: ansible_facts['os_family'] | lower == 'archlinux'
 ## RHEL based hosts
 - name: Install Docker on RHEL based hosts using dnf package manager
-  ansible.builtin.import_tasks: rhel_based_dnf.yml
+  ansible.builtin.import_tasks: install_rhel_based_dnf.yml
   when:
     - ansible_facts['os_family'] | lower == 'redhat'
     - ansible_facts['pkg_mgr'] | lower == 'dnf'
@@ -34,3 +34,7 @@
 # Enable and start Docker service
 - name: Enable Docker service
   ansible.builtin.import_tasks: start.yml
+
+# Create Docker networks
+- name: Create Docker networks
+  ansible.builtin.import_tasks: network.yml
