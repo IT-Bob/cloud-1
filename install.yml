@@ -20,19 +20,3 @@
       vars:
         - docker_mysql_network: "{{ docker_networks_list[0] }}"
       become: yes
-    - name: import nginx role
-      role: nginx
-      tags:
-        - nginx
-    - name: import phpmyadin role
-      role: phpmyadmin
-      tags:
-        - phpmyadmin
-    - name: import wordpress role
-      role: wordpress
-      tags:
-        - wordpress
-    - name: import php-fpm role
-      role: php-fpm
-      tags:
-        - php-fpm
