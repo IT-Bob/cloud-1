@@ -2,21 +2,21 @@
 # defaults file for mysql
 
 # Docker path to context
-docker_mysql_context_path: /etc/docker/cloud1/ft_mysql/
+mysql_docker_context_path: /etc/docker/cloud1/ft_mysql/
 # Container name
-docker_mysql_ctn_name: db
+mysql_docker_ctn_name: db
 # Image name
-docker_mysql_image_name: ft_mysql
+mysql_docker_image_name: ft_mysql
 # Image tag
-docker_mysql_image_tag: latest
+mysql_docker_image_tag: latest
 # "Retain anonymous volumes associated with a removed container"
-docker_mysql_keep_volumes: no
+mysql_docker_keep_volumes: no
 # Docker network in which the container will be added
-docker_mysql_network: bridge
+mysql_docker_network: bridge
 # Database root password
-docker_mysql_root_password: root
+mysql_docker_root_password: root
 # Volumes used with mysql container
-docker_mysql_volumes:
+mysql_docker_volumes:
   - mysql:/var/lib/mysql
 # Restart policy for the container
 restart_policy: unless-stopped

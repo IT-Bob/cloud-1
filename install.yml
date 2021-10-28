@@ -17,6 +17,8 @@
       role: mysql
       tags:
         - mysql
+      vars:
+        - docker_mysql_network: "{{ docker_networks_list[0] }}"
       become: yes
     - name: import nginx role
       role: nginx

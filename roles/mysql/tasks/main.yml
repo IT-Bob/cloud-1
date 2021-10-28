@@ -3,26 +3,37 @@
 - name: Copy mysql key on host
   ansible.builtin.copy:
     src: mysql.key
-    dest: "{{ docker_mysql_context_path }}"
+    dest: "{{ mysql_docker_context_path }}"
   tags:
     - build
     - mysql
 - name: Copy mysql Dockerfile on host
   ansible.builtin.template:
     src: Dockerfile.j2
-    dest: "{{ docker_mysql_context_path }}"
+    dest: "{{ mysql_docker_context_path }}/Dockerfile"
   tags:
     - build
     - mysql
 - name: Build MySQL Docker image
   community.docker.docker_image:
-    name: "{{ docker_mysql_image_name }}"
-    tag: "{{ docker_mysql_image_tag }}"
+    name: "{{ mysql_docker_image_name }}"
+    tag: "{{ mysql_docker_image_tag }}"
     build:
-      path: "{{ docker_mysql_context_path }}"
+      path: "{{ mysql_docker_context_path }}"
     source: build
     state: present
     force_source: yes
   tags:
     - build
     - mysql
+- name: Create MySQL container
+  community.docker.docker_container:
+    name: "{{ mysql_docker_ctn_name }}"
+    image: ft_mysql
+    state: started
+    volumes: "{{ mysql_docker_volumes }}"
+    detach: yes
+    keep_volumes: "{{ mysql_docker_keep_volumes }}"
+    networks:
+      - name: "{{ mysql_docker_network }}"
+    restart_policy: "{{ restart_policy }}"
