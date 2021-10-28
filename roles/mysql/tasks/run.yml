@@ -1,0 +1,13 @@
+# mysql - run.yml
+
+- name: Create MySQL container
+  community.docker.docker_container:
+    name: "{{ docker_mysql_ctn_name }}" 
+    image: ft_mysql
+    state: started
+    volumes: "{{ docker_mysql_volumes }}"
+    detach: yes
+    keep_volumes: "{{ docker_mysql_keep_volumes }}"
+    networks:
+      - name: "{{ docker_mysql_network }}"
+    restart_policy: "{{ restart_policy }}" 

@@ -1,0 +1,16 @@
+---
+# defaults file for mysql
+
+# Container name
+docker_mysql_ctn_name: db
+# "Retain anonymous volumes associated with a removed container"
+docker_mysql_keep_volumes: no
+# Docker network in which the container will be added
+docker_mysql_network: bridge
+# Database root password
+docker_mysql_root_password: root
+# Volumes used with mysql container
+docker_mysql_volumes:
+  - mysql:/var/lib/mysql
+# Restart policy for the container
+restart_policy: unless-stopped

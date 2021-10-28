@@ -1,9 +1,17 @@
 # mysql - main.yml
 
-- name: Copy mysql Dockerfile and files on host
+- name: Copy mysql key on host
   ansible.builtin.copy:
-    src: .
+    src: mysql.key
     dest: /etc/docker/cloud1/mysql/
+  become: yes
+  tags:
+    - build
+    - mysql
+- name: Copy mysql Dockerfile on host
+  ansible.builtin.template:
+    src: Dockerfile.j2
+    dest: /etc/docker/cloud1/mysql/Dockerfile
   become: yes
   tags:
     - build
