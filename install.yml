@@ -12,10 +12,12 @@
       role: docker
       tags:
         - docker
+      become: yes
     - name: import mysql role
       role: mysql
       tags:
         - mysql
+      become: yes
     - name: import nginx role
       role: nginx
       tags:
@@ -32,10 +34,3 @@
       role: php-fpm
       tags:
         - php-fpm
-  tasks:
-    - name: Create mysql container
-      ansible.builtin.import_tasks: roles/mysql/tasks/run.yml
-      vars:
-        - docker_network_name: "{{ docker_networks_list[0] }}"
-      tags:
-        - mysql

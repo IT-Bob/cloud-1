@@ -1,8 +1,14 @@
 ---
 # defaults file for mysql
 
+# Docker path to context
+docker_mysql_context_path: /etc/docker/cloud1/ft_mysql/
 # Container name
 docker_mysql_ctn_name: db
+# Image name
+docker_mysql_image_name: ft_mysql
+# Image tag
+docker_mysql_image_tag: latest
 # "Retain anonymous volumes associated with a removed container"
 docker_mysql_keep_volumes: no
 # Docker network in which the container will be added
