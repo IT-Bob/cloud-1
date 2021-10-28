@@ -1,0 +1,5 @@
+---
+# defaults file for docker
+
+docker_networks_list:
+  - bridge

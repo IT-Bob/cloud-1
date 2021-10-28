@@ -4,7 +4,7 @@
 - name: Install Cloud-1
   hosts: all
   vars:
-    docker_networks_name:
+    docker_networks_list:
       - cloud-1
   become: yes
   roles:
@@ -33,9 +33,12 @@
       tags:
         - php-fpm
   tasks:
+    - name: Create Docker network
+      ansible.builtin.import_tasks: roles/docker/tasks/network.yml
+      become: yes
     - name: Create mysql container
       ansible.builtin.import_tasks: roles/mysql/tasks/run.yml
       vars:
-        - docker_network_name: "{{ docker_networks_name[0] }}"
+        - docker_network_name: "{{ docker_networks_list[0] }}"
       tags:
         - mysql
