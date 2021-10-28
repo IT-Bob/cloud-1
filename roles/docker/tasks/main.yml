@@ -34,3 +34,7 @@
 # Enable and start Docker service
 - name: Enable Docker service
   ansible.builtin.import_tasks: start.yml
+
+# Create Docker Network(s)
+- name: Create Docker networks
+  ansible.builtin.import_tasks: network.yml
