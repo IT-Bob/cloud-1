@@ -4,16 +4,10 @@
   ansible.builtin.copy:
     src: mysql.key
     dest: "{{ mysql_docker_context_path }}"
-  tags:
-    - build
-    - mysql
 - name: Copy mysql Dockerfile on host
   ansible.builtin.template:
     src: Dockerfile.j2
     dest: "{{ mysql_docker_context_path }}/Dockerfile"
-  tags:
-    - build
-    - mysql
 - name: Build MySQL Docker image
   community.docker.docker_image:
     name: "{{ mysql_docker_image_name }}"
@@ -23,9 +17,6 @@
     source: build
     state: present
     force_source: yes
-  tags:
-    - build
-    - mysql
 - name: Create MySQL container
   community.docker.docker_container:
     name: "{{ mysql_docker_ctn_name }}"
