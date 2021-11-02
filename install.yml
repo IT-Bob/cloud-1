@@ -5,18 +5,17 @@
   hosts: all
   vars:
     docker_networks_list:
-      - cloud-1
+      - { name: cloud-1 }
   become: yes
   roles:
     - name: import docker role
       role: docker
       tags:
         - docker
-      become: yes
     - name: import mysql role
       role: mysql
       tags:
         - mysql
       vars:
-        - docker_mysql_network: "{{ docker_networks_list[0] }}"
-      become: yes
+        mysql_docker_networks:
+          - "{{ docker_networks_list[0] }}"

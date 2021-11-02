@@ -12,7 +12,8 @@ mysql_docker_image_tag: latest
 # "Retain anonymous volumes associated with a removed container"
 mysql_docker_keep_volumes: no
 # Docker network in which the container will be added
-mysql_docker_network: bridge
+mysql_docker_networks:
+  - bridge
 # Database root password
 mysql_docker_root_password: root
 # Volumes used with mysql container
