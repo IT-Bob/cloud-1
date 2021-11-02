@@ -1,6 +1,6 @@
 server {
 	listen	80;
-	root		/usr/share/nginx/wordpress;
+	root		"{{ wordpress_docker_full_site_path }}";
 	index		index.php index.html;
 
 	location = /favicon.ico {

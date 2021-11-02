@@ -1,0 +1,21 @@
+---
+# defaults file for wordpress
+
+# Docker context path
+wordpress_docker_context_path: /etc/docker/ft_wordpress
+# Container name
+wordpress_docker_ctn_name: wordpress
+# Image name
+wordpress_docker_image_name: ft_wordpress
+# Image tag
+wordpress_docker_image_tag: latest
+# "Retain anonymous volumes associated with a removed container"
+wordpress_docker_keep_volumes: no
+# Docker network(s) in which the container will be added
+wordpress_docker_networks:
+  - bridge
+# Path of wordpress files
+wordpress_docker_site_path: /usr/share/nginx/
+wordpress_docker_full_site_path: "{{ wordpress_docker_site_path}}/wordpress"
+
+restart_policy: unless-stopped

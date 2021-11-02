@@ -1,23 +1,22 @@
 # wordpress - main.yml
 
-- name: Copy wordpress Dockerfile and files on host
+- name: Copy wordpress files on host
   ansible.builtin.copy:
     src: .
-    dest: /etc/docker/cloud1/wordpress/
-  become: yes
-  tags:
-    - build
-    - wordpress
+    dest: "{{ wordpress_docker_context_path }}/"
+- name: Copy wordpress Dockerfile
+  ansible.builtin.template:
+    src: "{{ item }}.j2"
+    dest: "{{ wordpress_docker_context_path }}/{{ item }}"
+  loop:
+    - Dockerfile
+    - wordpress.conf
 - name: Build wordpress Docker image
   community.docker.docker_image:
-    name: ft_wordpress
-    tag: latest
+    name: "{{ wordpress_docker_image_name }}"
+    tag: "{{ wordpress_docker_image_tag }}"
     build:
-      path: /etc/docker/cloud1/wordpress/
+      path: "{{ wordpress_docker_context_path }}/"
     source: build
     state: present
     force_source: yes
-  become: yes
-  tags:
-    - build
-    - wordpress

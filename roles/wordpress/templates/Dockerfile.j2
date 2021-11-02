@@ -6,9 +6,8 @@ FROM ft_nginx:latest
 # update and upgrade packages
 RUN apk update\
   && apk upgrade
-
-# copy and extract wordpress sources to the container
-ADD wordpress-latest.tar.gz /usr/share/nginx/
+# copy and extract wordpresssources to the container
+ADD wordpress-latest.tar.gz "{{ wordpress_docker_site_path }}"
 
 # copy nginx configuration file for wordpress
 COPY wordpress.conf /etc/nginx/conf.d/
