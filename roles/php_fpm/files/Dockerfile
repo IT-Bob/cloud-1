@@ -13,7 +13,4 @@ RUN apk update\
     php8-session\
     php8-xml
 
-# update php-fpm config
-RUN sed -i 's/^listen = 127.0.0.1:9000$/listen = 0.0.0.0:9000/' /etc/php8/php-fpm.d/www.conf
-
 CMD ["php-fpm8", "-F"]

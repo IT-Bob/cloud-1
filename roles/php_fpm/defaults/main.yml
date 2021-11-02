@@ -1,0 +1,23 @@
+---
+# defaults file for php_fpm
+
+# Docker context path
+phpfpm_docker_context_path: /etc/docker/ft_php-fpm
+# Container name
+phpfpm_docker_ctn_name: php-fpm
+# Image name
+phpfpm_docker_image_name: ft_php-fpm
+# Image tag
+phpfpm_docker_image_tag: latest
+# "Retain anonymous volumes associated with a removed container:
+phpfpm_docker_keep_volumes: no
+# Docker network(s) in which the container will be added
+phpfpm_docker_networks:
+  - bridge
+# Restart policy for the container
+restart_policy: unless-stopped
+
+phpfpm_docker_user: nobody
+phpfpm_docker_group: nobody
+phpfpm_docker_listen_host: "127.0.0.1"
+phpfpm_docker_listen_port: 9000
