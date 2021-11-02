@@ -1,38 +1,45 @@
 # mysql - main.yml
 
-- name: Copy mysql key on host
-  ansible.builtin.copy:
-    src: mysql.key
-    dest: "{{ mysql_docker_context_path }}/"
-- name: Copy mysql Dockerfile on host
-  ansible.builtin.template:
-    src: Dockerfile.j2
-    dest: "{{ mysql_docker_context_path }}/Dockerfile"
-- name: Build MySQL Docker image
-  community.docker.docker_image:
-    name: "{{ mysql_docker_image_name }}"
-    tag: "{{ mysql_docker_image_tag }}"
-    build:
-      path: "{{ mysql_docker_context_path }}/"
-    source: build
-    state: present
-    force_source: yes
-- name: Create MySQL container
-  community.docker.docker_container:
-    name: "{{ mysql_docker_ctn_name }}"
-    image: ft_mysql
-    state: started
-    volumes: "{{ mysql_docker_volumes }}"
-    detach: yes
-    keep_volumes: "{{ mysql_docker_keep_volumes }}"
-    networks: "{{ mysql_docker_networks }}"
-    restart_policy: "{{ restart_policy }}"
-- name: Wait for the container to start
-  ansible.builtin.wait_for:
-    timeout: 5
-- name: Create MySQL user
-  ansible.builtin.shell:
-    cmd: "echo \"CREATE USER IF NOT EXISTS '{{ item.name }}'@'{{ item.host }}' IDENTIFIED BY '{{ item.password }}'\" | docker exec -i {{ mysql_docker_ctn_name }} mysql -u root -p{{ mysql_docker_root_password }}"
-  loop: "{{ mysql_docker_new_users }}"
-  when: mysql_docker_new_users is defined
-  no_log: true
+- name: Ensure Dockerfile with password are always deleted
+  block:
+    - name: Copy mysql key on host
+      ansible.builtin.copy:
+        src: mysql.key
+        dest: "{{ mysql_docker_context_path }}/"
+    - name: Copy mysql Dockerfile on host
+      ansible.builtin.template:
+        src: Dockerfile.j2
+        dest: "{{ mysql_docker_context_path }}/Dockerfile"
+    - name: Build MySQL Docker image
+      community.docker.docker_image:
+        name: "{{ mysql_docker_image_name }}"
+        tag: "{{ mysql_docker_image_tag }}"
+        build:
+          path: "{{ mysql_docker_context_path }}/"
+        source: build
+        state: present
+        force_source: yes
+    - name: Create MySQL container
+      community.docker.docker_container:
+        name: "{{ mysql_docker_ctn_name }}"
+        image: ft_mysql
+        state: started
+        volumes: "{{ mysql_docker_volumes }}"
+        detach: yes
+        keep_volumes: "{{ mysql_docker_keep_volumes }}"
+        networks: "{{ mysql_docker_networks }}"
+        restart_policy: "{{ restart_policy }}"
+    - name: Wait for the container to start
+      ansible.builtin.wait_for:
+        timeout: 5
+    - name: Create MySQL user
+      ansible.builtin.shell:
+        cmd: "echo \"CREATE USER IF NOT EXISTS '{{ item.name }}'@'{{ item.host }}' IDENTIFIED BY '{{ item.password }}'\" | docker exec -i {{ mysql_docker_ctn_name }} mysql -u root -p{{ mysql_docker_root_password }}"
+      loop: "{{ mysql_docker_new_users }}"
+      when: mysql_docker_new_users is defined
+      no_log: true
+  always:
+    - name: Remove MySQL Dockerfile
+      ansible.builtin.file:
+        path: "{{ mysql_docker_context_path }}/Dockerfile"
+        state: absent
