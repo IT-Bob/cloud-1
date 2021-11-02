@@ -5,6 +5,6 @@
 
 - name: Create Docker network
   community.docker.docker_network:
-    name: "{{ item }}"
+    name: "{{ item.name }}"
     state: present
   loop: "{{ docker_networks_list }}"
