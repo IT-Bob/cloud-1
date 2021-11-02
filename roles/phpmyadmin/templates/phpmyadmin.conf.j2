@@ -1,7 +1,7 @@
 server {
 	listen	80;
-	root	/usr/share/nginx/phpmyadmin;
-	index	index.php index.html;
+	root    "{{ phpmyadmin_docker_site_path }}";
+	index   index.php index.html;
 
 	location = /favicon.ico {
 		log_not_found off;

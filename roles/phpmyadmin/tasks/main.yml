@@ -1,23 +1,31 @@
 # phpmyadmin - main.yml
 
-- name: Copy phpmyadmin Dockerfile and files on host
+- name: Copy phpmyadmin files on host
   ansible.builtin.copy:
     src: .
-    dest: /etc/docker/cloud1/phpmyadmin/
-  become: yes
-  tags:
-    - build
-    - phpmyadmin
+    dest: "{{ phpmyadmin_docker_context_path }}/"
+- name: Copy phpmyadmin Dockerfile on host
+  ansible.builtin.template:
+    src: "{{ item }}.j2"
+    dest: "{{ phpmyadmin_docker_context_path }}/{{ item }}"
+  loop:
+    - Dockerfile
+    - phpmyadmin.conf
 - name: Build phpmyadmin Docker image
   community.docker.docker_image:
-    name: ft_phpmyadmin
-    tag: latest
+    name: "{{ phpmyadmin_docker_image_name }}"
+    tag: "{{ phpmyadmin_docker_image_tag }}"
     build:
-      path: /etc/docker/cloud1/phpmyadmin/
+      path: "{{ phpmyadmin_docker_context_path }}/"
     source: build
     state: present
     force_source: yes
-  become: yes
-  tags:
-    - build
-    - phpmyadmin
+      #- name: Run phpmyadmin Docker container
+      #  community.docker.docker_container:
+      #    name: "{{ phpmyadmin_docker_ctn_name }}"
+      #    image: "{{ phpmyadmin_docker_image_name }}"
+      #    state: started
+      #    volumes: "{{ phpmyadmin_docker_volumes }}"
+      #    detach: yes
+      #    networks: "{{ phpmyadmin_docker_networks }}"
+      #    restart_policy: "{{ restart_policy }}"
