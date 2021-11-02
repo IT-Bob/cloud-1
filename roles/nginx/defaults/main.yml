@@ -1,0 +1,9 @@
+---
+# defaults file for nginx
+
+# Docker path to context
+nginx_docker_context_path: /etc/docker/ft_nginx
+# Image name
+nginx_docker_image_name: ft_nginx
+# Image tag
+nginx_docker_image_tag: latest

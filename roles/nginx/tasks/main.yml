@@ -3,21 +3,13 @@
 - name: Copy nginx Dockerfile and files on host
   ansible.builtin.copy:
     src: .
-    dest: /etc/docker/cloud1/nginx/
-  become: yes
-  tags:
-    - build
-    - nginx
+    dest: "{{ nginx_docker_context_path }}/"
 - name: Build nginx Docker image
   community.docker.docker_image:
-    name: ft_nginx
-    tag: latest
+    name: "{{ nginx_docker_image_name }}"
+    tag: "{{ nginx_docker_image_tag }}"
     build:
-      path: /etc/docker/cloud1/nginx/
+      path: "{{ nginx_docker_context_path }}/"
     source: build
     state: present
     force_source: yes
-  become: yes
-  tags:
-    - build
-    - nginx
