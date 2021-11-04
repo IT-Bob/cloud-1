@@ -40,6 +40,18 @@
       loop: "{{ mysql_docker_new_users }}"
       when: mysql_docker_new_users is defined
       no_log: true
+    - name: Grant permissions for new user
+      ansible.builtin.shell:
+        cmd: "echo \"GRANT ALL PRIVILEGES ON {{ item.database }}.* TO '{{ item.name }}'@'{{ item.host }}'; FLUSH PRIVILEGES;\" | docker exec -i {{ mysql_docker_ctn_name }} mysql -u root -p{{ mysql_docker_root_password }}"
+      loop: "{{ mysql_docker_new_users }}"
+      when: mysql_docker_new_users is defined
+      no_log: true
+    - name: Create users database
+      ansible.builtin.shell:
+        cmd: "echo \"CREATE DATABASE IF NOT EXISTS {{ item.database }}\" | docker exec -i {{ mysql_docker_ctn_name }} mysql -u root -p{{ mysql_docker_root_password }}"
+      loop: "{{ mysql_docker_new_users }}"
+      when: mysql_docker_new_users is defined
+      no_log: true
   always:
     - name: Remove MySQL Dockerfile
       ansible.builtin.file:
