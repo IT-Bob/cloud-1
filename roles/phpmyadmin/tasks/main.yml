@@ -20,12 +20,15 @@
     source: build
     state: present
     force_source: yes
-      #- name: Run phpmyadmin Docker container
-      #  community.docker.docker_container:
-      #    name: "{{ phpmyadmin_docker_ctn_name }}"
-      #    image: "{{ phpmyadmin_docker_image_name }}"
-      #    state: started
-      #    volumes: "{{ phpmyadmin_docker_volumes }}"
-      #    detach: yes
-      #    networks: "{{ phpmyadmin_docker_networks }}"
-      #    restart_policy: "{{ restart_policy }}"
+- name: Run phpmyadmin Docker container
+  community.docker.docker_container:
+    name: "{{ phpmyadmin_docker_ctn_name }}"
+    image: "{{ phpmyadmin_docker_image_name }}"
+    state: started
+    container_default_behavior: no_defaults
+    detach: yes
+    keep_volumes: no
+    networks: "{{ phpmyadmin_docker_networks }}"
+    restart_policy: "{{ restart_policy }}"
+    volumes: "{{ phpmyadmin_docker_volumes }}"
+    network_mode: default
