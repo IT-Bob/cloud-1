@@ -4,6 +4,12 @@
   ansible.builtin.copy:
     src: .
     dest: "{{ phpfpm_docker_context_path }}/"
+- name: Copy php-fpm config file
+  ansible.builtin.template:
+    src: "{{ item }}.j2"
+    dest: "{{ phpfpm_docker_context_path}}/{{ item }}"
+  loop:
+    - www.conf
 - name: Build php-fpm Docker image
   community.docker.docker_image:
     name: "{{ phpfpm_docker_image_name }}"
@@ -13,3 +19,14 @@
     source: build
     state: present
     force_source: yes
+- name: Run php-fpm Docker container
+  community.docker.docker_container:
+    name: "{{ phpfpm_docker_ctn_name }}"
+    image: "{{ phpfpm_docker_image_name }}"
+    networks: "{{ phpfpm_docker_networks }}"
+    keep_volumes: no
+    state: started
+    restart_policy: unless-stopped
+    volumes_from: "{{ phpfpm_docker_volumes_from_list }}"
+    container_default_behavior: no_defaults
+    network_mode: default

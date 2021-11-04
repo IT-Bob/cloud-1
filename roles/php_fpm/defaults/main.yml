@@ -19,5 +19,5 @@ restart_policy: unless-stopped
 
 phpfpm_docker_user: nobody
 phpfpm_docker_group: nobody
-phpfpm_docker_listen_host: "127.0.0.1"
+phpfpm_docker_listen_host: "0.0.0.0"
 phpfpm_docker_listen_port: 9000

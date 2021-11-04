@@ -13,4 +13,6 @@ RUN apk update\
     php8-session\
     php8-xml
 
+COPY www.conf /etc/php8/php-fpm.d/
+
 CMD ["php-fpm8", "-F"]
