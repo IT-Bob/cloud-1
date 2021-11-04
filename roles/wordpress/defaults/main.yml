@@ -15,7 +15,9 @@ wordpress_docker_keep_volumes: no
 wordpress_docker_networks:
   - bridge
 # Path of wordpress files
-wordpress_docker_site_path: /usr/share/nginx/
+wordpress_docker_site_path: /usr/share/nginx
 wordpress_docker_full_site_path: "{{ wordpress_docker_site_path}}/wordpress"
-
+# Volumes used with wordpress container
+wordpress_docker_volumes:
+  - "{{ wordpress_docker_ctn_name }}:{{ wordpress_docker_full_site_path }}"
 restart_policy: unless-stopped

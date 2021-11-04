@@ -20,3 +20,15 @@
     source: build
     state: present
     force_source: yes
+- name: Run wordpress Docker container
+  community.docker.docker_container:
+    name: "{{ wordpress_docker_ctn_name }}"
+    image: "{{ wordpress_docker_image_name }}"
+    state: started
+    container_default_behavior: no_defaults
+    detach: yes
+    keep_volumes: no
+    networks: "{{ wordpress_docker_networks }}"
+    restart_policy: "{{ restart_policy }}"
+    volumes: "{{ wordpress_docker_volumes }}"
+    network_mode: default
