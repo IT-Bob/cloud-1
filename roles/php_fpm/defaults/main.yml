@@ -15,7 +15,7 @@ phpfpm_docker_keep_volumes: no
 phpfpm_docker_networks:
   - bridge
 # Restart policy for the container
-restart_policy: unless-stopped
+phpfpm_docker_restart_policy: unless-stopped
 
 phpfpm_docker_user: nobody
 phpfpm_docker_group: nobody

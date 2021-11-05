@@ -29,6 +29,6 @@
     detach: yes
     keep_volumes: no
     networks: "{{ phpmyadmin_docker_networks }}"
-    restart_policy: "{{ restart_policy }}"
+    restart_policy: "{{ phpmyadmin_docker_restart_policy }}"
     volumes: "{{ phpmyadmin_docker_volumes }}"
     network_mode: default

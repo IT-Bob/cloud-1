@@ -20,4 +20,4 @@ wordpress_docker_full_site_path: "{{ wordpress_docker_site_path}}/wordpress"
 # Volumes used with wordpress container
 wordpress_docker_volumes:
   - "{{ wordpress_docker_ctn_name }}:{{ wordpress_docker_full_site_path }}"
-restart_policy: unless-stopped
+wordpress_docker_restart_policy: unless-stopped

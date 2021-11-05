@@ -26,7 +26,7 @@
     networks: "{{ phpfpm_docker_networks }}"
     keep_volumes: no
     state: started
-    restart_policy: unless-stopped
+    restart_policy: "{{ phpfpm_docker_restart_policy }}"
     volumes_from: "{{ phpfpm_docker_volumes_from_list }}"
     container_default_behavior: no_defaults
     network_mode: default

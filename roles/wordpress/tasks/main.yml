@@ -29,6 +29,6 @@
     detach: yes
     keep_volumes: no
     networks: "{{ wordpress_docker_networks }}"
-    restart_policy: "{{ restart_policy }}"
+    restart_policy: "{{ wordpress_docker_restart_policy }}"
     volumes: "{{ wordpress_docker_volumes }}"
     network_mode: default

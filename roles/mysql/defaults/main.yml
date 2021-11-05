@@ -20,4 +20,4 @@ mysql_docker_root_password: root
 mysql_docker_volumes:
   - mysql:/var/lib/mysql
 # Restart policy for the container
-restart_policy: unless-stopped
+mysql_docker_restart_policy: unless-stopped
