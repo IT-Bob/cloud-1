@@ -19,7 +19,7 @@
         source: build
         state: present
         force_source: yes
-    - name: Create MySQL container
+    - name: Create and run MySQL container
       community.docker.docker_container:
         name: "{{ mysql_docker_ctn_name }}"
         image: ft_mysql
@@ -31,7 +31,11 @@
         network_mode: default
         restart_policy: "{{ mysql_docker_restart_policy }}"
         container_default_behavior: no_defaults
-      notify: Wait for the container to start
+      register: mysql_docker_fresh_run
+    - name: Wait for the container to start
+      ansible.builtin.wait_for:
+        timeout: 5
+      when: mysql_docker_fresh_run.changed is true
     - name: Create MySQL user
       ansible.builtin.shell:
         cmd: "echo \"CREATE USER IF NOT EXISTS '{{ item.name }}'@'{{ item.host }}' IDENTIFIED BY '{{ item.password }}'\" | docker exec -i {{ mysql_docker_ctn_name }} mysql -u root -p{{ mysql_docker_root_password }}"
