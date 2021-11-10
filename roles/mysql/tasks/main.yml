@@ -31,9 +31,7 @@
         network_mode: default
         restart_policy: "{{ mysql_docker_restart_policy }}"
         container_default_behavior: no_defaults
-    - name: Wait for the container to start
-      ansible.builtin.wait_for:
-        timeout: 5
+      notify: Wait for the container to start
     - name: Create MySQL user
       ansible.builtin.shell:
         cmd: "echo \"CREATE USER IF NOT EXISTS '{{ item.name }}'@'{{ item.host }}' IDENTIFIED BY '{{ item.password }}'\" | docker exec -i {{ mysql_docker_ctn_name }} mysql -u root -p{{ mysql_docker_root_password }}"

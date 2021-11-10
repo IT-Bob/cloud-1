@@ -1,0 +1,5 @@
+---
+# handlers file for mysql
+- name: Wait for the container to start
+  ansible.builtin.wait_for:
+    timeout: 5
