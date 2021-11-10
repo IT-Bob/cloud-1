@@ -1,0 +1,18 @@
+upstream default {
+  server {{ reverseproxy_docker_default_upstream }};
+}
+
+server {
+  listen {{ reverseproxy_docker_default_port }};
+  server_name _;
+  return 301 $scheme://{{ reverseproxy_docker_default_tdn }}$request_uri;
+
+  location / {
+    proxy_pass http://default;
+    proxy_set_header  Host $host;
+    proxy_set_header	X-Forwarded-For	$proxy_add_x_forwarded_for;
+    
+    proxy_connect_timeout	30;
+    proxy_send_timeout		30;
+  }
+}

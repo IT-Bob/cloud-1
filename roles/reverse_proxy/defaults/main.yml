@@ -1,0 +1,15 @@
+---
+# defaults file for reverse_proxy
+
+# Container name
+reverseproxy_docker_ctn_name: proxy
+# Image to use to for container
+reverseproxy_docker_image_name: "{{ nginx_docker_image_name }}"
+# Docker network(s) in which the container will be added
+reverseproxy_docker_networks:
+  - bridge
+# List of ports to be published
+reverseproxy_docker_published_ports:
+  - "80:80"
+  - "443:443"
+reverseproxy_docker_restart_policy: unless-stopped

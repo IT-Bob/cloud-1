@@ -1,0 +1,47 @@
+---
+# tasks file for reverse_proxy
+- name: Ensure conf.d directory exists
+  ansible.builtin.file:
+    path: "/etc/docker/proxy/conf.d/"
+    state: directory
+- name: Generate Nginx configuration files
+  ansible.builtin.template:
+    src: site.conf.j2
+    dest: "/etc/docker/proxy/conf.d/{{ item.upstream }}.conf"
+  vars:
+    reverseproxy_docker_upstream: "{{ item.upstream }}"
+    reverseproxy_docker_server: "{{ item.server }}"
+    reverseproxy_docker_listen_port: "{{ item.port }}"
+    reverseproxy_docker_server_name: "{{ item.server_name }}"
+  loop:
+    "{{ reverseproxy_docker_sites }}"
+  when: reverseproxy_docker_sites is defined
+  notify: Restart reverse proxy container
+- name: Generate Nginx default site configuration
+  ansible.builtin.template:
+    src: default.conf.j2
+    dest: "/etc/docker/proxy/conf.d/default.conf"
+  vars:
+    reverseproxy_docker_default_upstream: "{{ item.upstream }}"
+    reverseproxy_docker_default_port: "{{ item.port }}"
+    reverseproxy_docker_default_tdn: "{{ item.server_name }}"
+  when:
+    - reverseproxy_docker_sites is defined
+    - item.default is true
+  loop: "{{ reverseproxy_docker_sites }}"
+  notify: Restart reverse proxy container
+- name: Run reverse proxy container
+  community.docker.docker_container:
+    name: "{{ reverseproxy_docker_ctn_name }}"
+    image: "{{ reverseproxy_docker_image_name }}"
+    state: started
+    container_default_behavior: no_defaults
+    detach: yes
+    keep_volumes: no
+    networks: "{{ reverseproxy_docker_networks }}"
+    network_mode: default
+    published_ports: "{{ reverseproxy_docker_published_ports }}"
+    restart_policy: "{{ reverseproxy_docker_restart_policy }}"
+    volumes:
+      - "/etc/docker/proxy/conf.d/:/etc/nginx/conf.d/"
+  register: reverseproxy_fresh_run
