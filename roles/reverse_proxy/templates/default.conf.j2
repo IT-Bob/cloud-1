@@ -3,7 +3,7 @@ upstream default {
 }
 
 server {
-  listen {{ reverseproxy_docker_default_port }};
+  listen 80;
   server_name _;
   return 301 $scheme://{{ reverseproxy_docker_default_tdn }}$request_uri;
 

@@ -3,7 +3,7 @@ upstream {{ reverseproxy_docker_upstream }} {
 }
 
 server {
-	listen	{{ reverseproxy_docker_listen_port }};
+	listen 80;
 	server_name	{{ reverseproxy_docker_server_name }};
 
 	location / {

@@ -11,7 +11,6 @@
   vars:
     reverseproxy_docker_upstream: "{{ item.upstream }}"
     reverseproxy_docker_server: "{{ item.server }}"
-    reverseproxy_docker_listen_port: "{{ item.port }}"
     reverseproxy_docker_server_name: "{{ item.server_name }}"
   loop:
     "{{ reverseproxy_docker_sites }}"
@@ -23,14 +22,13 @@
     dest: "/etc/docker/proxy/conf.d/default.conf"
   vars:
     reverseproxy_docker_default_upstream: "{{ item.upstream }}"
-    reverseproxy_docker_default_port: "{{ item.port }}"
     reverseproxy_docker_default_tdn: "{{ item.server_name }}"
   when:
     - reverseproxy_docker_sites is defined
     - item.default is true
   loop: "{{ reverseproxy_docker_sites }}"
   notify: Restart reverse proxy container
-- name: Run reverse proxy container
+- name: Create and run reverse proxy container
   community.docker.docker_container:
     name: "{{ reverseproxy_docker_ctn_name }}"
     image: "{{ reverseproxy_docker_image_name }}"
