@@ -38,7 +38,7 @@
 - name: Create private key
   community.crypto.openssl_privatekey:
     path: /etc/docker/proxy/certs/cert.key
-- name: CSR
+- name: Create certificate signing request
   community.crypto.openssl_csr_pipe:
     privatekey_path: /etc/docker/proxy/certs/cert.key
     common_name: ag-wordpress.ddns.net ag-phpmyadmin.ddns.net
