@@ -10,7 +10,8 @@ RUN apk update\
 # copy and extract phpmyadmin sources to the container
 ADD phpmyadmin.tar.gz /tmp/
 
-RUN mv /tmp/phpMyAdmin-5.1.1-all-languages "{{ phpmyadmin_docker_site_path }}"
+RUN mkdir -p $(dirname "{{ phpmyadmin_docker_site_path }}")\
+  && mv /tmp/phpMyAdmin-5.1.1-all-languages "{{ phpmyadmin_docker_site_path }}"
 
 # copy nginx configuration file for phpmyadmin
 COPY phpmyadmin.conf /etc/nginx/conf.d/
