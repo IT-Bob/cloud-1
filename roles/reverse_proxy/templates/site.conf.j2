@@ -4,7 +4,13 @@ upstream {{ reverseproxy_docker_upstream }} {
 
 server {
 	listen 80;
+  listen 443 ssl;
 	server_name	{{ reverseproxy_docker_server_name }};
+
+  # redirect http to https
+  if ($scheme = "http") {
+    return 301 https://$server_name$request_uri;
+  }
 
 	location / {
 		proxy_pass http://{{ reverseproxy_docker_upstream }};
