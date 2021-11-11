@@ -14,4 +14,4 @@
     restart_policy: "{{ reverseproxy_docker_restart_policy }}"
     volumes:
       - "/etc/docker/proxy/conf.d/:/etc/nginx/conf.d/"
-  when: reverseproxy_fresh_run.changed is false
+  when: reverseproxy_fresh_run.changed is false or reverseproxy_generate_certificate is true

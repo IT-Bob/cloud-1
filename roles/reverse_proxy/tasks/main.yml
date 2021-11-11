@@ -1,10 +1,17 @@
 ---
 # tasks file for reverse_proxy
-- name: Ensure conf.d directory exists
+- name: Ensure directory exists
   ansible.builtin.file:
-    path: "/etc/docker/proxy/conf.d/"
+    path: "{{ item }}"
     state: directory
-- name: Generate Nginx configuration files
+  loop:
+    - "/etc/docker/proxy/conf.d/"
+    - "/etc/docker/proxy/certs/"
+- name: Generate Nginx configuration
+  ansible.builtin.template:
+    src: nginx.conf.j2
+    dest: /etc/docker/proxy/nginx.conf
+- name: Generate sites Nginx configuration files
   ansible.builtin.template:
     src: site.conf.j2
     dest: "/etc/docker/proxy/conf.d/{{ item.upstream }}.conf"
@@ -28,6 +35,24 @@
     - item.default is true
   loop: "{{ reverseproxy_docker_sites }}"
   notify: Restart reverse proxy container
+- name: Create private key
+  community.crypto.openssl_privatekey:
+    path: /etc/docker/proxy/certs/cert.key
+- name: CSR
+  community.crypto.openssl_csr_pipe:
+    privatekey_path: /etc/docker/proxy/certs/cert.key
+    common_name: ag-wordpress.ddns.net ag-phpmyadmin.ddns.net
+    country_name: FR
+    organization_name: 42
+  register: csr
+- name: Generate TLS certificate
+  community.crypto.x509_certificate:
+    path: /etc/docker/proxy/certs/cert.pem
+    privatekey_path: /etc/docker/proxy/certs/cert.key
+    csr_content: "{{ csr.csr }}"
+    provider: selfsigned
+  notify: Restart reverse proxy container
+  register: reverseproxy_generate_certificate
 - name: Create and run reverse proxy container
   community.docker.docker_container:
     name: "{{ reverseproxy_docker_ctn_name }}"
@@ -42,4 +67,6 @@
     restart_policy: "{{ reverseproxy_docker_restart_policy }}"
     volumes:
       - "/etc/docker/proxy/conf.d/:/etc/nginx/conf.d/"
+      - "/etc/docker/proxy/nginx.conf:/etc/nginx/nginx.conf"
+      - "/etc/docker/proxy/certs/:/root/certs"
   register: reverseproxy_fresh_run
