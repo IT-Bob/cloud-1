@@ -28,8 +28,6 @@
       - docker
     state: present
   become: yes
-  tags:
-    - python
 
 # Enable and start Docker service
 - name: Enable Docker service

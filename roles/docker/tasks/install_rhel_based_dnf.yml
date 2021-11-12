@@ -31,5 +31,3 @@
     state: present
     update_cache: yes
   become: yes
-  tags:
-    - python
