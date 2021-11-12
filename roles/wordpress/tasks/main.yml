@@ -11,6 +11,7 @@
   loop:
     - Dockerfile
     - wordpress.conf
+    - wp-config.php
 - name: Build wordpress Docker image
   community.docker.docker_image:
     name: "{{ wordpress_docker_image_name }}"
