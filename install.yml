@@ -1,6 +1,15 @@
 ---
 # Cloud-1 - install.yml
 
+- name: Update system
+  hosts: all
+  tasks:
+    - name: upgrade packages
+      ansible.builtin.apt:
+        upgrade: yes
+        update_cache: yes
+      become: yes
+      tags: always
 - name: Install Cloud-1
   hosts: all
   vars:
@@ -17,5 +26,41 @@
       tags:
         - mysql
       vars:
-        mysql_docker_networks:
-          - "{{ docker_networks_list[0] }}"
+        mysql_docker_networks: "{{ docker_networks_list }}"
+    - name: import nginx role
+      role: nginx
+    - name: import phpmyadmin role
+      role: phpmyadmin
+      vars:
+        phpmyadmin_docker_networks: "{{ docker_networks_list }}"
+        phpmyadmin_docker_db_host: "{{ mysql_docker_ctn_name }}"
+      tags: phpmyadmin
+    - name: import wordpress role
+      role: wordpress
+      vars:
+        wordpress_docker_networks: "{{ docker_networks_list }}"
+      tags: wordpress
+    - name: import php-fpm role
+      role: php_fpm
+      vars:
+        phpfpm_docker_networks: "{{ docker_networks_list }}"
+        phpfpm_docker_volumes_from_list:
+          - wordpress
+          - phpmyadmin
+      tags: phpfpm
+    - name: import reverse_proxy role
+      role: reverse_proxy
+      vars:
+        reverseproxy_docker_networks: "{{ docker_networks_list }}"
+        reverseproxy_docker_sites:
+          - {
+              upstream: wordpress,
+              server: wordpress,
+              server_name: "ag-wordpress.ddns.net",
+              default: true
+            }
+          - {
+              upstream: phpmyadmin,
+              server: phpmyadmin,
+              server_name: "ag-phpmyadmin.ddns.net",
+            }
