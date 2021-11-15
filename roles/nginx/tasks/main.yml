@@ -1,5 +1,9 @@
 # nginx - main.yml
 
+#
+# Create a nginx Docker image
+#
+
 - name: Copy nginx Dockerfile and files on host
   ansible.builtin.copy:
     src: .
