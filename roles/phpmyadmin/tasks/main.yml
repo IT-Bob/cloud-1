@@ -1,5 +1,10 @@
 # phpmyadmin - main.yml
 
+#
+# Create a phpmyadmin Docker image
+# based on the ft_nginx image
+#
+
 - name: Copy phpmyadmin files on host
   ansible.builtin.copy:
     src: .
