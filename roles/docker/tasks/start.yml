@@ -1,6 +1,6 @@
 # Docker - start.yml
 #
-# Starts and enables Docker service
+# Start and enable Docker service
 #
 
 - name: Enable and start Docker

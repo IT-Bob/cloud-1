@@ -1,4 +1,4 @@
-# Docker - rhel_based_dnf.yml
+# Docker - install_rhel_based_dnf.yml
 #
 # Install Docker on a RHEL-based system
 #
@@ -23,7 +23,8 @@
     state: present
   become: yes
 
-# Install Ansible requirements to control Docker
+# Install Python Package Installer required for
+# Docker SDK for Python installation
 - name: Install Python package installer
   ansible.builtin.dnf:
     name:

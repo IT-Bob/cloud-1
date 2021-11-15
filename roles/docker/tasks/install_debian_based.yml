@@ -1,4 +1,4 @@
-# Docker - debian_based.yml
+# Docker - install_debian_based.yml
 #
 # Install Docker on a Debian-based system
 #
@@ -37,7 +37,8 @@
     update_cache: yes
   become: yes
 
-# Install Ansible requirements to control Docker
+# Install Python Package Installer required for
+# Docker SDK for Python installation
 - name: Install Python package installer
   ansible.builtin.apt:
     name:

@@ -1,4 +1,4 @@
-# Docker - arch_based.yml
+# Docker - install_arch_based.yml
 #
 # Install Docker on a Arch-based system
 #
@@ -11,7 +11,8 @@
     update_cache: yes
   become: yes
 
-# Install Ansible requirements to control Docker
+# Install Python Package Installer required for
+# Docker SDK for Python installation
 - name: Install Python package installer
   community.general.pacman:
     name:
