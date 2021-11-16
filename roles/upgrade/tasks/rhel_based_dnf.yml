@@ -1,0 +1,12 @@
+# upgrade - rhel_based_dnf.yml
+
+#
+# Upgrade packages on rhel-based system using dnf package manager
+#
+
+- name: rhel-based - upgrade packages
+  ansible.builtin.dnf:
+    name: "*"
+    state: latest
+    update_cache: yes
+  become: yes

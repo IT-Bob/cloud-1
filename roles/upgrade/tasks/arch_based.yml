@@ -1,0 +1,11 @@
+# upgrade - arche_based.yml
+
+#
+# Upgrade packages on arch-based system
+#
+
+- name: arch-based - upgrade packages
+  community.general.pacman:
+    update_cache: yes
+    upgrade: yes
+  become: yes

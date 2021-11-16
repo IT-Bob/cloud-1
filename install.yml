@@ -1,22 +1,18 @@
 ---
 # Cloud-1 - install.yml
 
-- name: Update system
-  hosts: all
-  tasks:
-    - name: upgrade packages
-      ansible.builtin.apt:
-        upgrade: yes
-        update_cache: yes
-      become: yes
-      tags: always
 - name: Install Cloud-1
   hosts: all
   vars:
     docker_networks_list:
       - { name: cloud-1 }
   become: yes
+
   roles:
+    - name: import upgrade role
+      role: upgrade
+      tags:
+        - always
     - name: import docker role
       role: docker
       tags:

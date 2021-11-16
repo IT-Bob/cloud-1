@@ -1,0 +1,11 @@
+# upgrade - debian_based.yml
+
+#
+# Upgrade packages on debian-based system
+#
+
+- name: debian-based - upgrade packages
+  ansible.builtin.apt:
+    upgrade: yes
+    update_cache: yes
+  become: yes
