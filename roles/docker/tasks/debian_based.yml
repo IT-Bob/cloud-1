@@ -4,7 +4,7 @@
 # Install Docker on a Debian-based system
 #
 
-- name: Install Docker dependencies
+- name: debian-based - Install Docker dependencies
   ansible.builtin.apt:
     name:
       - apt-transport-https
@@ -15,20 +15,20 @@
     state: present
     update_cache: yes
   become: yes
-- name: Import Docker GPG key
+- name: debian-based - Import Docker GPG key
   ansible.builtin.apt_key:
     url: "https://download.docker.com/linux/{{ ansible_facts['distribution'] | lower }}/gpg"
     keyring: "/usr/share/keyrings/docker-archive-keyring.gpg"
     state: present
   become: yes
-- name: Add Docker stable repository
+- name: debian-based - Add Docker stable repository
   ansible.builtin.apt_repository:
     repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/{{ ansible_facts['distribution'] | lower }} {{ ansible_facts['distribution_release'] }} stable"
     filename: "docker"
     update_cache: yes
     state: present
   become: yes
-- name: Install Docker Engine
+- name: debian-based - Install Docker Engine
   ansible.builtin.apt:
     name:
       - containerd.io
@@ -40,7 +40,7 @@
 
 # Install Python Package Installer required for
 # Docker SDK for Python installation
-- name: Install Python package installer
+- name: debian-based - Install Python package installer
   ansible.builtin.apt:
     name:
       - python3-pip

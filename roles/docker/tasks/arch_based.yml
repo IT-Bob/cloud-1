@@ -4,7 +4,7 @@
 # Install Docker on a Arch-based system
 #
 
-- name: Install Docker Engine
+- name: arch-based - Install Docker Engine
   community.general.pacman:
     name:
       - docker
@@ -14,7 +14,7 @@
 
 # Install Python Package Installer required for
 # Docker SDK for Python installation
-- name: Install Python package installer
+- name: arch-based - Install Python package installer
   community.general.pacman:
     name:
       - python-pip
