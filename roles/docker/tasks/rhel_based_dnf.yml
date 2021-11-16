@@ -1,4 +1,5 @@
-# Docker - install_rhel_based_dnf.yml
+# Docker - rhel_based_dnf.yml
+
 #
 # Install Docker on a RHEL-based system
 #
