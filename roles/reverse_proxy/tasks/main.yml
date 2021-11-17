@@ -10,7 +10,7 @@
 - name: Generate Nginx configuration
   ansible.builtin.template:
     src: nginx.conf.j2
-    dest: /etc/docker/proxy/nginx.conf
+    dest: "{{ reverseproxy_docker_context_path }}/nginx.conf"
 - name: Generate sites Nginx configuration files
   ansible.builtin.template:
     src: site.conf.j2
@@ -37,10 +37,10 @@
   notify: Restart reverse proxy container
 - name: Create private key
   community.crypto.openssl_privatekey:
-    path: /etc/docker/proxy/certs/cert.key
+    path: "{{ reverseproxy_docker_context_path }}/certs/cert.key"
 - name: Create certificate signing request
   community.crypto.openssl_csr_pipe:
-    privatekey_path: /etc/docker/proxy/certs/cert.key
+    privatekey_path: "{{ reverseproxy_docker_context_path }}/certs/cert.key"
     common_name: ag-wordpress.ddns.net ag-phpmyadmin.ddns.net
     country_name: FR
     organization_name: 42
