@@ -13,3 +13,8 @@ reverseproxy_docker_published_ports:
   - "80:80"
   - "443:443"
 reverseproxy_docker_restart_policy: unless-stopped
+reverseproxy_docker_context_path: "/etc/docker/proxy"
+reverseproxy_docker_volumes:
+  - "{{ reverseproxy_docker_context_path }}/conf.d/:/etc/nginx/conf.d/"
+  - "{{ reverseproxy_docker_context_path }}/nginx.conf:/etc/nginx/nginx.conf"
+  - "{{ reverseproxy_docker_context_path }}/certs/:/root/certs"
