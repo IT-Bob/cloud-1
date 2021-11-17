@@ -21,3 +21,8 @@ wordpress_docker_full_site_path: "{{ wordpress_docker_site_path}}/wordpress"
 wordpress_docker_volumes:
   - "{{ wordpress_docker_ctn_name }}:{{ wordpress_docker_full_site_path }}"
 wordpress_docker_restart_policy: unless-stopped
+wordpress_docker_db_name: wordpress
+wordpress_docker_db_user: ''
+wordpress_docker_db_password: ''
+wordpress_docker_db_host: ''
+wordpress_docker_fastcgi_pass: "localhost:9000"

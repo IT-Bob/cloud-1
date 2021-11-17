@@ -6,6 +6,7 @@
   vars:
     docker_networks_list:
       - { name: cloud-1 }
+    fastcgi_pass: "{{ phpfpm_docker_ctn_name }}:{{ phpfpm_docker_listen_port }}"
   become: yes
 
   roles:
@@ -25,12 +26,18 @@
       vars:
         phpmyadmin_docker_networks: "{{ docker_networks_list }}"
         phpmyadmin_docker_db_host: "{{ mysql_docker_ctn_name }}"
+        phpmyadmin_docker_fastcgi_pass: "{{ fastcgi_pass }}"
       tags:
         - phpmyadmin
     - name: import wordpress role
       role: wordpress
       vars:
         wordpress_docker_networks: "{{ docker_networks_list }}"
+        wordpress_docker_db_name: "{{ mysql_docker_new_users[0].database }}"
+        wordpress_docker_db_user: "{{ mysql_docker_new_users[0].name }}"
+        wordpress_docker_db_password: "{{ mysql_docker_new_users[0].password }}"
+        wordpress_docker_db_host: "{{ mysql_docker_ctn_name }}"
+        wordpress_docker_fastcgi_pass: "{{ fastcgi_pass }}"
       tags:
         - wordpress
     - name: import php-fpm role
