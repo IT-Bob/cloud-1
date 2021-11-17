@@ -29,6 +29,7 @@
         keep_volumes: "{{ mysql_docker_keep_volumes }}"
         networks: "{{ mysql_docker_networks }}"
         network_mode: default
+        purge_networks: yes
         restart_policy: "{{ mysql_docker_restart_policy }}"
         container_default_behavior: no_defaults
       register: mysql_docker_fresh_run

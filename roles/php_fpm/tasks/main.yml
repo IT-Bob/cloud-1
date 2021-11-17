@@ -24,9 +24,10 @@
     name: "{{ phpfpm_docker_ctn_name }}"
     image: "{{ phpfpm_docker_image_name }}"
     networks: "{{ phpfpm_docker_networks }}"
+    network_mode: default
+    purge_networks: yes
     keep_volumes: no
     state: started
     restart_policy: "{{ phpfpm_docker_restart_policy }}"
     volumes_from: "{{ phpfpm_docker_volumes_from_list }}"
     container_default_behavior: no_defaults
-    network_mode: default

@@ -63,6 +63,7 @@
     keep_volumes: no
     networks: "{{ reverseproxy_docker_networks }}"
     network_mode: default
+    purge_networks: yes
     published_ports: "{{ reverseproxy_docker_published_ports }}"
     restart_policy: "{{ reverseproxy_docker_restart_policy }}"
     volumes: "{{ reverseproxy_docker_volumes }}"
