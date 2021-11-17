@@ -13,7 +13,7 @@ phpfpm_docker_image_tag: latest
 phpfpm_docker_keep_volumes: no
 # Docker network(s) in which the container will be added
 phpfpm_docker_networks:
-  - bridge
+  - { name: bridge }
 # Restart policy for the container
 phpfpm_docker_restart_policy: unless-stopped
 

@@ -7,7 +7,7 @@ reverseproxy_docker_ctn_name: proxy
 reverseproxy_docker_image_name: "{{ nginx_docker_image_name }}"
 # Docker network(s) in which the container will be added
 reverseproxy_docker_networks:
-  - bridge
+  - { name: bridge }
 # List of ports to be published
 reverseproxy_docker_published_ports:
   - "80:80"

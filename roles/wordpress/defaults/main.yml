@@ -13,7 +13,7 @@ wordpress_docker_image_tag: latest
 wordpress_docker_keep_volumes: no
 # Docker network(s) in which the container will be added
 wordpress_docker_networks:
-  - bridge
+  - { name: bridge }
 # Path of wordpress files
 wordpress_docker_site_path: /usr/share/nginx
 wordpress_docker_full_site_path: "{{ wordpress_docker_site_path}}/wordpress"
