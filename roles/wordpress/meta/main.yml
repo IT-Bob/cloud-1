@@ -1,0 +1,5 @@
+# meta file for wordpress
+---
+dependencies:
+  - role: docker
+  - role: nginx

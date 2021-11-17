@@ -1,0 +1,4 @@
+# meta file for reverse_proxy
+---
+dependencies:
+  - role: nginx
