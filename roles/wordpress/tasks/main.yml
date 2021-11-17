@@ -4,7 +4,7 @@
   ansible.builtin.copy:
     src: .
     dest: "{{ wordpress_docker_context_path }}/"
-- name: Copy wordpress Dockerfile
+- name: Generate wordpress files on host
   ansible.builtin.template:
     src: "{{ item }}.j2"
     dest: "{{ wordpress_docker_context_path }}/{{ item }}"
