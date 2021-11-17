@@ -17,14 +17,18 @@
       role: docker
       tags:
         - docker
+        - always
     - name: import mysql role
       role: mysql
       tags:
         - mysql
       vars:
         mysql_docker_networks: "{{ docker_networks_list }}"
+        mysql_docker_ctn_name: db
     - name: import nginx role
       role: nginx
+      tags:
+        - nginx
     - name: import phpmyadmin role
       role: phpmyadmin
       vars:
@@ -60,3 +64,4 @@
               server: phpmyadmin,
               server_name: "ag-phpmyadmin.ddns.net",
             }
+      tags: reverseproxy
