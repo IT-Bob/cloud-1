@@ -15,22 +15,24 @@
         - always
     - name: import mysql role
       role: mysql
-      tags:
-        - mysql
       vars:
         mysql_docker_networks: "{{ docker_networks_list }}"
         mysql_docker_ctn_name: db
+      tags:
+        - mysql
     - name: import phpmyadmin role
       role: phpmyadmin
       vars:
         phpmyadmin_docker_networks: "{{ docker_networks_list }}"
         phpmyadmin_docker_db_host: "{{ mysql_docker_ctn_name }}"
-      tags: phpmyadmin
+      tags:
+        - phpmyadmin
     - name: import wordpress role
       role: wordpress
       vars:
         wordpress_docker_networks: "{{ docker_networks_list }}"
-      tags: wordpress
+      tags:
+        - wordpress
     - name: import php-fpm role
       role: php_fpm
       vars:
@@ -38,7 +40,8 @@
         phpfpm_docker_volumes_from_list:
           - wordpress
           - phpmyadmin
-      tags: phpfpm
+      tags:
+        - phpfpm
     - name: import reverse_proxy role
       role: reverse_proxy
       vars:
@@ -55,4 +58,5 @@
               server: phpmyadmin,
               server_name: "ag-phpmyadmin.ddns.net",
             }
-      tags: reverseproxy
+      tags:
+        - reverseproxy
