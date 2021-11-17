@@ -16,7 +16,7 @@ phpfpm_docker_networks:
   - { name: bridge }
 # Restart policy for the container
 phpfpm_docker_restart_policy: unless-stopped
-
+# php-fpm config
 phpfpm_docker_user: nobody
 phpfpm_docker_group: nobody
 phpfpm_docker_listen_host: "0.0.0.0"
