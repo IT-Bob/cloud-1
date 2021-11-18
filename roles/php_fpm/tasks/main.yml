@@ -19,6 +19,8 @@
     source: build
     state: present
     force_source: yes
+# The container is always recreate to unsure that path used by sites in other containers and php-fpm are identicals
+# But maybe not the best way to do that...
 - name: Run php-fpm Docker container
   community.docker.docker_container:
     name: "{{ phpfpm_docker_ctn_name }}"
@@ -31,3 +33,4 @@
     restart_policy: "{{ phpfpm_docker_restart_policy }}"
     volumes_from: "{{ phpfpm_docker_volumes_from_list }}"
     container_default_behavior: no_defaults
+    recreate: yes
