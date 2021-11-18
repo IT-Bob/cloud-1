@@ -38,20 +38,23 @@
         timeout: 5
       when: mysql_docker_fresh_run.changed is true
     - name: Create MySQL user
-      ansible.builtin.shell:
-        cmd: "echo \"CREATE USER IF NOT EXISTS '{{ item.name }}'@'{{ item.host }}' IDENTIFIED BY '{{ item.password }}'\" | docker exec -i {{ mysql_docker_ctn_name }} mysql -u root -p{{ mysql_docker_root_password }}"
+      community.docker.docker_container_exec:
+        container: "{{ mysql_docker_ctn_name }}"
+        command: "mysql -u root -p{{ mysql_docker_root_password }} -e \"CREATE USER IF NOT EXISTS '{{ item.name }}'@'{{ item.host }}' IDENTIFIED BY '{{ item.password }}';\""
       loop: "{{ mysql_docker_new_users }}"
       when: mysql_docker_new_users is defined
       no_log: true
     - name: Grant permissions for new user
-      ansible.builtin.shell:
-        cmd: "echo \"GRANT ALL PRIVILEGES ON {{ item.database }}.* TO '{{ item.name }}'@'{{ item.host }}'; FLUSH PRIVILEGES;\" | docker exec -i {{ mysql_docker_ctn_name }} mysql -u root -p{{ mysql_docker_root_password }}"
+      community.docker.docker_container_exec:
+        container: "{{ mysql_docker_ctn_name }}"
+        command: "mysql -u root -p{{ mysql_docker_root_password }} -e \"GRANT ALL PRIVILEGES ON {{ item.database }}.* TO '{{ item.name }}'@'{{ item.host }}'; FLUSH PRIVILEGES;\""
       loop: "{{ mysql_docker_new_users }}"
       when: mysql_docker_new_users is defined
       no_log: true
     - name: Create users database
-      ansible.builtin.shell:
-        cmd: "echo \"CREATE DATABASE IF NOT EXISTS {{ item.database }}\" | docker exec -i {{ mysql_docker_ctn_name }} mysql -u root -p{{ mysql_docker_root_password }}"
+      community.docker.docker_container_exec:
+        container: "{{ mysql_docker_ctn_name }}"
+        command: "mysql -u root -p{{ mysql_docker_root_password }} -e \"CREATE DATABASE IF NOT EXISTS {{ item.database }};\""
       loop: "{{ mysql_docker_new_users }}"
       when: mysql_docker_new_users is defined
       no_log: true
