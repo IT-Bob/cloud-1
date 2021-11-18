@@ -13,8 +13,6 @@
   ansible.builtin.template:
     src: "{{ item }}.j2"
     dest: "{{ phpmyadmin_docker_context_path }}/{{ item }}"
-  vars:
-    blowfish_secret: "{{ lookup('password', '/dev/null length=32') }}"
   loop:
     - Dockerfile
     - phpmyadmin.conf
