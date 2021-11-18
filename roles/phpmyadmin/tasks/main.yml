@@ -9,14 +9,19 @@
   ansible.builtin.copy:
     src: .
     dest: "{{ phpmyadmin_docker_context_path }}/"
-- name: Copy phpmyadmin Dockerfile on host
+- name: Generate phpmyadmin Dockerfile on host
   ansible.builtin.template:
     src: "{{ item }}.j2"
     dest: "{{ phpmyadmin_docker_context_path }}/{{ item }}"
   loop:
     - Dockerfile
     - phpmyadmin.conf
-    - config.inc.php
+- name: Generate phpmyadmin config file on host
+  ansible.builtin.template:
+    src: config.inc.php.j2
+    dest: "{{ phpmyadmin_docker_context_path }}/config.inc.php"
+  notify: Restart phpmyadmin Docker container
+  register: phpmyadmin_update_config
 - name: Build phpmyadmin Docker image
   community.docker.docker_image:
     name: "{{ phpmyadmin_docker_image_name }}"
@@ -39,3 +44,4 @@
     purge_networks: yes
     restart_policy: "{{ phpmyadmin_docker_restart_policy }}"
     volumes: "{{ phpmyadmin_docker_volumes }}"
+  register: phpmyadmin_fresh_run

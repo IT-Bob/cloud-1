@@ -1,0 +1,17 @@
+# handlers file for phpmyadmin
+- name: Restart phpmyadmin Docker container
+  community.docker.docker_container:
+    name: "{{ phpmyadmin_docker_ctn_name }}"
+    image: "{{ phpmyadmin_docker_image_name }}"
+    state: started
+    container_default_behavior: no_defaults
+    detach: yes
+    keep_volumes: no
+    networks: "{{ phpmyadmin_docker_networks }}"
+    network_mode: default
+    purge_networks: yes
+    restart_policy: "{{ phpmyadmin_docker_restart_policy }}"
+    volumes: "{{ phpmyadmin_docker_volumes }}"
+    restart: yes
+  when: phpmyadmin_fresh_run.changed == false
+    or phpmyadmin_config_update == true
