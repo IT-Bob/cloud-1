@@ -11,7 +11,12 @@
   loop:
     - Dockerfile
     - wordpress.conf
-    - wp-config.php
+- name: Generate wordpress config file on host
+  ansible.builtin.template:
+    src: wp-config.php.j2
+    dest: "{{ wordpress_docker_context_path }}/wp-config.php"
+  notify: Restart wordpress Docker container
+  register: wordpress_config_update
 - name: Build wordpress Docker image
   community.docker.docker_image:
     name: "{{ wordpress_docker_image_name }}"
@@ -34,3 +39,4 @@
     purge_networks: yes
     restart_policy: "{{ wordpress_docker_restart_policy }}"
     volumes: "{{ wordpress_docker_volumes }}"
+  register: wordpress_fresh_run
