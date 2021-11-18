@@ -14,4 +14,4 @@
     volumes: "{{ phpmyadmin_docker_volumes }}"
     restart: yes
   when: phpmyadmin_fresh_run.changed == false
-    or phpmyadmin_config_update == true
+    or phpmyadmin_update_config.changed == true
