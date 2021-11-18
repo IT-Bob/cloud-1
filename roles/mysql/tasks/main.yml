@@ -40,14 +40,20 @@
     - name: Create MySQL user
       community.docker.docker_container_exec:
         container: "{{ mysql_docker_ctn_name }}"
-        command: "mysql -u root -p{{ mysql_docker_root_password }} -e \"CREATE USER IF NOT EXISTS '{{ item.name }}'@'{{ item.host }}' IDENTIFIED BY '{{ item.password }}';\""
+        command: "mysql -u root -p{{ mysql_docker_root_password }} -e \"CREATE USER IF NOT EXISTS '{{ item.name }}'@'{{ item.host }}';\""
       loop: "{{ mysql_docker_new_users }}"
       when: mysql_docker_new_users is defined
+      no_log: true
+    - name: Set MySQL user password
+      community.docker.docker_container_exec:
+        container: "{{ mysql_docker_ctn_name }}"
+        command: "mysql -u root -p{{ mysql_docker_root_password }} -e \"ALTER USER {{ item.name }}@'{{ item.host }}' IDENTIFIED BY '{{ item.password }}';\""
+      loop: "{{ mysql_docker_new_users }}"
       no_log: true
     - name: Grant permissions for new user
       community.docker.docker_container_exec:
         container: "{{ mysql_docker_ctn_name }}"
-        command: "mysql -u root -p{{ mysql_docker_root_password }} -e \"GRANT ALL PRIVILEGES ON {{ item.database }}.* TO '{{ item.name }}'@'{{ item.host }}'; FLUSH PRIVILEGES;\""
+        command: "mysql -u root -p{{ mysql_docker_root_password }} -e \"GRANT ALL PRIVILEGES ON {{ item.database }}.* TO '{{ item.name }}'@'{{ item.host }}';\""
       loop: "{{ mysql_docker_new_users }}"
       when: mysql_docker_new_users is defined
       no_log: true
@@ -58,6 +64,10 @@
       loop: "{{ mysql_docker_new_users }}"
       when: mysql_docker_new_users is defined
       no_log: true
+    - name: Flush MySQL privileges
+      community.docker.docker_container_exec:
+        container: "{{ mysql_docker_ctn_name }}"
+        command: "mysql -u root -p{{ mysql_docker_root_password }} -e \"FLUSH PRIVILEGES;\""
   always:
     - name: Remove MySQL Dockerfile
       ansible.builtin.file:
