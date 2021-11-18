@@ -65,5 +65,11 @@
               server: phpmyadmin,
               server_name: "ag-phpmyadmin.ddns.net",
             }
+        reverseproxy_docker_certificate:
+          {
+            common_name: ag-wordpress.ddns.net ag-phpmyadmin.ddns.net,
+            country_name: FR,
+            organization_name: 42,
+          }
       tags:
         - reverseproxy

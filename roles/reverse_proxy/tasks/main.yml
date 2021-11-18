@@ -41,9 +41,9 @@
 - name: Create certificate signing request
   community.crypto.openssl_csr_pipe:
     privatekey_path: "{{ reverseproxy_docker_context_path }}/certs/cert.key"
-    common_name: ag-wordpress.ddns.net ag-phpmyadmin.ddns.net
-    country_name: FR
-    organization_name: 42
+    common_name: "{{ reverseproxy_docker_certificate.common_name }}"
+    country_name: "{{ reverseproxy_docker_certificate.country_name }}"
+    organization_name: "{{ reverseproxy_docker_certificate.organization_name }}"
   register: csr
 - name: Generate TLS certificate
   community.crypto.x509_certificate:
