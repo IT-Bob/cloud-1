@@ -73,3 +73,12 @@
           }
       tags:
         - reverseproxy
+
+  post_tasks:
+    - name: Clean Docker objects
+      community.docker.docker_prune:
+        builder_cache: yes
+        containers: yes
+        images: yes
+        networks: yes
+        volumes: yes
