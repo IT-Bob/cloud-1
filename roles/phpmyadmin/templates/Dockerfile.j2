@@ -17,7 +17,6 @@ RUN mkdir -p $(dirname {{ phpmyadmin_docker_site_path }})\
 
 # copy nginx configuration file for phpmyadmin
 COPY phpmyadmin.conf /etc/nginx/conf.d/
-COPY config.inc.php {{ phpmyadmin_docker_site_path }}/
 
 # remove default site and its associate nginx config file
 RUN rm -rf /usr/share/nginx/html\

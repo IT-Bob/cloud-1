@@ -19,6 +19,7 @@ phpmyadmin_docker_site_path: /usr/share/nginx/phpmyadmin
 # Volumes used with phpmyadmin container
 phpmyadmin_docker_volumes:
   - "{{ phpmyadmin_docker_ctn_name }}:{{ phpmyadmin_docker_site_path }}"
+  - "{{ phpmyadmin_docker_site_path }}/config.inc.php:{{ phpmyadmin_docker_context_path }}/config.inc.php"
 # Restart policy for the container
 phpmyadmin_docker_restart_policy: unless-stopped
 # Host on which the DB is hosted

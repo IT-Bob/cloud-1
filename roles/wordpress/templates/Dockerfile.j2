@@ -11,7 +11,6 @@ ADD wordpress-latest.tar.gz {{ wordpress_docker_site_path }}
 
 # copy nginx configuration file for wordpress
 COPY wordpress.conf /etc/nginx/conf.d/
-COPY wp-config.php {{ wordpress_docker_full_site_path }}/
 
 # remove default site and its associate nginx config file
 RUN rm -rf /usr/share/nginx/html\
